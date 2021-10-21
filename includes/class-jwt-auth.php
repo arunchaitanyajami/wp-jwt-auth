@@ -64,7 +64,7 @@ class Jwt_Auth
      */
     public function __construct()
     {
-        $this->plugin_name = 'jwt-auth';
+        $this->plugin_name = apply_filters('jwt-auth-api-namespace', 'jwt-auth' );
         $this->version = '1.1.0';
 
         $this->load_dependencies();
