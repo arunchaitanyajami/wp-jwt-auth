@@ -103,7 +103,7 @@ class Jwt_Auth_Public {
 	 */
 	public function generate_token( $request ) {
 		$secret_key = defined( 'JWT_AUTH_SECRET_KEY' ) ? JWT_AUTH_SECRET_KEY : false;
-		$username   = $request->get_param( 'username' );
+		$username   = $request->get_param( 'email' );
 		$password   = $request->get_param( 'password' );
 
 		/** First thing, check the secret key if not exist return a error*/
@@ -132,25 +132,8 @@ class Jwt_Auth_Public {
 			);
 		}
 
-		/** Valid credentials, the user exists create the according Token */
-		$issuedAt  = time();
-		$notBefore = apply_filters( 'jwt_auth_not_before', $issuedAt, $issuedAt );
-		$expire    = apply_filters( 'jwt_auth_expire', $issuedAt + ( DAY_IN_SECONDS * 7 ), $issuedAt );
-
-		$token = array(
-			'iss'  => get_bloginfo( 'url' ),
-			'iat'  => $issuedAt,
-			'nbf'  => $notBefore,
-			'exp'  => $expire,
-			'data' => array(
-				'user' => array(
-					'id' => $user->data->ID,
-				),
-			),
-		);
-
 		/** Let the user modify the token data before the sign. */
-		$token = JWT::encode( apply_filters( 'jwt_auth_token_before_sign', $token, $user ), $secret_key );
+		$token = $this->get_user_token( $user );
 
 		/** The token is signed, now create the object with no sensible user data to the client*/
 		$data = array(
@@ -262,7 +245,7 @@ class Jwt_Auth_Public {
 		if ( ! $secret_key ) {
 			return new \WP_Error(
 				'jwt_auth_bad_config',
-				'JWT is not configurated properly, please contact the admin',
+				'JWT is not configured properly, please contact the admin',
 				array(
 					'status' => 403,
 				)
@@ -334,5 +317,41 @@ class Jwt_Auth_Public {
 		}
 
 		return $response;
+	}
+
+	/**
+	 * Get token by user object.
+	 *
+	 * @param \WP_User $user User object
+	 *
+	 * @return bool | string User with token
+	 */
+	public function get_user_token( \WP_User $user ): string {
+		$secret_key = defined( 'JWT_AUTH_SECRET_KEY' ) ? JWT_AUTH_SECRET_KEY : false;
+		if( empty( $secret_key ) ){
+			return false;
+		}
+
+		/** Valid credentials, the user exists create the according Token */
+		$issuedAt  = time();
+		$notBefore = apply_filters( 'jwt_auth_not_before', $issuedAt, $issuedAt );
+		$expire    = apply_filters( 'jwt_auth_expire', $issuedAt + ( DAY_IN_SECONDS * 7 ), $issuedAt );
+
+		$token = [
+			'iss'  => get_bloginfo( 'url' ),
+			'iat'  => $issuedAt,
+			'nbf'  => $notBefore,
+			'exp'  => $expire,
+			'data' => [
+				'user' => [
+					'id' => $user->data->ID,
+				],
+			],
+		];
+
+		/** Let the user modify the token data before the sign. */
+		$token = JWT::encode( apply_filters( 'jwt_auth_token_before_sign', $token, $user ), $secret_key );
+
+		return $token;
 	}
 }
