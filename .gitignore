@@ -1,4 +1,4 @@
 .idea
-includes/vendor/
-!includes/vendor/composer
-!includes/vendor/firebase/php-jwt
+vendor/
+!vendor/composer
+!vendor/firebase/php-jwt

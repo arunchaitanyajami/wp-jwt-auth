@@ -1,11 +1,12 @@
 <?php
-
 /**
  * Register all actions and filters for the plugin.
  *
  * @link       https://enriquechavez.co
  * @since      1.0.0
  */
+
+namespace AJ;
 
 /**
  * Register all actions and filters for the plugin.
@@ -92,7 +93,7 @@ class Jwt_Auth_Loader
      * @param int      Optional $priority      The priority at which the function should be fired.
      * @param int      Optional $accepted_args The number of arguments that should be passed to the $callback.
      *
-     * @return type The collection of actions and filters registered with WordPress.
+     * @return array The collection of actions and filters registered with WordPress.
      */
     private function add($hooks, $hook, $component, $callback, $priority, $accepted_args)
     {

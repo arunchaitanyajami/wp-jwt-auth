@@ -23,17 +23,22 @@
  * Text Domain:       jwt-auth
  * Domain Path:       /languages
  */
+namespace AJ;
 
 // If this file is called directly, abort.
 if (!defined('WPINC')) {
     die;
 }
 
+define('PLUGIN_DIR', __DIR__ );
+
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path(__FILE__) . 'includes/class-jwt-auth.php';
+if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
+	include_once __DIR__ . '/vendor/autoload.php';
+}
 
 /**
  * Begins execution of the plugin.
