@@ -1,31 +1,36 @@
 {
-    "name": "arunchaitanyajami/wp-api-jwt-auth",
+  "name": "arunchaitanyajami/wp-api-jwt-auth",
   "description": "A simple plugin to add JSON Web Token (JWT) Authentication to WP REST API.",
   "homepage": "https://github.com/arunchaitanyajami/wp-jwt-auth/",
   "type": "wordpress-plugin",
+  "minimum-stability": "stable",
+  "prefer-stable" : true,
   "license": "GPL-2.0+",
   "authors": [
-      {
-          "name": "Arun Chaitanya Jami",
-          "homepage": "https://github.com/arunchaitanyajami"
-      }
+    {
+      "name": "Arun Chaitanya Jami",
+      "homepage": "https://github.com/arunchaitanyajami"
+    }
   ],
   "support": {
-      "issues": "https://github.com/arunchaitanyajami/wp-jwt-auth/issues",
-      "source": "https://github.com/arunchaitanyajami/wp-jwt-auth/"
+    "issues": "https://github.com/arunchaitanyajami/wp-jwt-auth/issues",
+    "source": "https://github.com/arunchaitanyajami/wp-jwt-auth/"
   },
   "require": {
-      "php": ">=5.3",
-      "composer/installers": "~1.0",
-      "firebase/php-jwt": "^5.0.0"
+    "php": ">=5.3",
+    "composer/installers": "~1.0",
+    "firebase/php-jwt": "^5.0.0"
   },
   "autoload": {
     "psr-4": {
-      "AJ\\": [ "includes/", "pointer/" ]
+      "AJ\\": [
+        "includes/",
+        "pointer/"
+      ]
     }
   },
   "require-dev": {
-      "phpunit/phpunit": "^5.2",
-      "guzzlehttp/guzzle": "^6.1"
+    "phpunit/phpunit": "^5.2",
+    "guzzlehttp/guzzle": "^6.1"
   }
 }
