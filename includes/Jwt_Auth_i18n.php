@@ -40,7 +40,7 @@ class Jwt_Auth_i18n
 		load_plugin_textdomain(
 			$this->domain,
 			false,
-			JWT_PLUGIN_DIR . '/languages/'
+			false
 		);
 	}
 
