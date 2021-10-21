@@ -75,11 +75,13 @@ class Jwt_Auth_Public {
 		register_rest_route( $this->namespace, 'token', array(
 			'methods'  => 'POST',
 			'callback' => array( $this, 'generate_token' ),
+			'permission_callback' => array( $this, 'permission_callback' ),
 		) );
 
 		register_rest_route( $this->namespace, 'token/validate', array(
 			'methods'  => 'POST',
 			'callback' => array( $this, 'validate_token' ),
+			'permission_callback' => array( $this, 'permission_callback' ),
 		) );
 	}
 
@@ -353,5 +355,14 @@ class Jwt_Auth_Public {
 		$token = JWT::encode( apply_filters( 'jwt_auth_token_before_sign', $token, $user ), $secret_key );
 
 		return $token;
+	}
+
+	/**
+	 * Rest Api permission callback.
+	 *
+	 * @return bool
+	 */
+	public function permission_callback(){
+		return true;
 	}
 }
