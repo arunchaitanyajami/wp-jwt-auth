@@ -36,13 +36,13 @@ class Jwt_Auth_i18n
      *
      * @since    1.0.0
      */
-    public function load_plugin_textdomain() {
-	    load_plugin_textdomain(
-		    $this->domain,
-		    false,
-		    PLUGIN_DIR. '/languages/'
-	    );
-    }
+	public function load_plugin_textdomain() {
+		load_plugin_textdomain(
+			$this->domain,
+			false,
+			JWT_PLUGIN_DIR . '/languages/'
+		);
+	}
 
     /**
      * Set the domain equal to that of the specified domain.

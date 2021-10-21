@@ -30,14 +30,14 @@ if (!defined('WPINC')) {
     die;
 }
 
-define('PLUGIN_DIR', __DIR__ );
+define( 'JWT_PLUGIN_DIR', __DIR__ );
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
-	include_once __DIR__ . '/vendor/autoload.php';
+if ( file_exists( JWT_PLUGIN_DIR . '/vendor/autoload.php' ) ) {
+	include_once JWT_PLUGIN_DIR . '/vendor/autoload.php';
 }
 
 /**
