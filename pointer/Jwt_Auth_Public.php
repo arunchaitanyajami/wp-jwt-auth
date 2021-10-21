@@ -328,7 +328,7 @@ class Jwt_Auth_Public {
 	 */
 	public static function get_user_token( \WP_User $user ): string {
 		$secret_key = defined( 'JWT_AUTH_SECRET_KEY' ) ? JWT_AUTH_SECRET_KEY : false;
-		if( empty( $secret_key ) ){
+		if ( empty( $secret_key ) ) {
 			return false;
 		}
 

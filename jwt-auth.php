@@ -26,8 +26,8 @@
 namespace AJ;
 
 // If this file is called directly, abort.
-if (!defined('WPINC')) {
-    die;
+if ( ! defined( 'WPINC' ) ) {
+	die;
 }
 
 define( 'JWT_PLUGIN_DIR', __DIR__ );
@@ -49,9 +49,9 @@ if ( file_exists( JWT_PLUGIN_DIR . '/vendor/autoload.php' ) ) {
  *
  * @since    1.0.0
  */
-function run_jwt_auth()
-{
-    $plugin = new Jwt_Auth();
-    $plugin->run();
+function run_jwt_auth() {
+	$plugin = new Jwt_Auth();
+	$plugin->run();
 }
+
 run_jwt_auth();
