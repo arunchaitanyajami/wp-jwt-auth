@@ -99,11 +99,11 @@ class Jwt_Auth_Public {
 	/**
 	 * Get the user and password in the request body and generate a JWT
 	 *
-	 * @param  [type] $request [description]
+	 * @param  \WP_REST_Request $request [description]
 	 *
-	 * @return [type] [description]
+	 * @return \WP_Error | \WP_REST_Response [description]
 	 */
-	public function generate_token( $request ) {
+	public function generate_token( \WP_REST_Request $request ) {
 		$secret_key = defined( 'JWT_AUTH_SECRET_KEY' ) ? JWT_AUTH_SECRET_KEY : false;
 		$username   = $request->get_param( 'email' );
 		$password   = $request->get_param( 'password' );
@@ -150,88 +150,22 @@ class Jwt_Auth_Public {
 	}
 
 	/**
-	 * This is our Middleware to try to authenticate the user according to the
-	 * token send.
-	 *
-	 * @param  (int|bool) $user Logged User ID
-	 *
-	 * @return (int|bool)
-	 */
-	public function determine_current_user( $user ) {
-		/**
-		 * This hook only should run on the REST API requests to determine
-		 * if the user in the Token (if any) is valid, for any other
-		 * normal call ex. wp-admin/.* return the user.
-		 *
-		 * @since 1.2.3
-		 **/
-		$rest_api_slug = rest_get_url_prefix();
-		$valid_api_uri = strpos( $_SERVER['REQUEST_URI'], $rest_api_slug );
-		if ( ! $valid_api_uri ) {
-			return $user;
-		}
-
-		/*
-		 * if the request URI is for validate the token don't do anything,
-		 * this avoid double calls to the validate_token function.
-		 */
-		$validate_uri = strpos( $_SERVER['REQUEST_URI'], 'token/validate' );
-		if ( $validate_uri > 0 ) {
-			return $user;
-		}
-
-		$token = $this->validate_token( false );
-
-		if ( is_wp_error( $token ) ) {
-			if ( $token->get_error_code() != 'jwt_auth_no_auth_header' ) {
-				/** If there is a error, store it to show it after see rest_pre_dispatch */
-				$this->jwt_error = $token;
-
-				return $user;
-			} else {
-				return $user;
-			}
-		}
-
-		/** Everything is ok, return the user ID stored in the token*/
-		return $token->data->user->id;
-	}
-
-	/**
 	 * Main validation function, this function try to get the Autentication
 	 * headers and decoded.
 	 *
-	 * @param bool $output
+	 * @param \WP_REST_Request $request Rest Request.
 	 *
 	 * @return \WP_Error | Object | array
 	 */
-	public function validate_token( $output = true ) {
-		/*
-		 * Looking for the HTTP_AUTHORIZATION header, if not present just
-		 * return the user.
-		 */
-		$auth = isset( $_SERVER['HTTP_AUTHORIZATION'] ) ? $_SERVER['HTTP_AUTHORIZATION'] : false;
+	public function validate_token( \WP_REST_Request $request  ) {
 
-		/* Double check for different auth header string (server dependent) */
-		if ( ! $auth ) {
-			$auth = isset( $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ) ? $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] : false;
-		}
-
-		if ( ! $auth ) {
-			return new \WP_Error(
-				'jwt_auth_no_auth_header',
-				'Authorization header not found.',
-				array(
-					'status' => 403,
-				)
-			);
-		}
+		$auth_header = $request->get_header( 'Authorization' );
 
 		/*
 		 * The HTTP_AUTHORIZATION is present verify the format
 		 * if the format is wrong return the user.
 		 */
-		list( $token ) = sscanf( $auth, 'Bearer %s' );
+		list( $token ) = sscanf( $auth_header, 'Bearer %s' );
 		if ( ! $token ) {
 			return new \WP_Error(
 				'jwt_auth_bad_auth_header',
@@ -279,18 +213,18 @@ class Jwt_Auth_Public {
 					)
 				);
 			}
-			/** Everything looks good return the decoded token if the $output is false */
-			if ( ! $output ) {
-				return $token;
-			}
 
 			/** If the output is true return an answer to the request to show it */
-			return array(
-				'code' => 'jwt_auth_valid_token',
-				'data' => array(
-					'status' => 200,
-				),
-			);
+			 return new \WP_REST_Response(
+				 array(
+					 'code' => 'jwt_auth_valid_token',
+					 'message' => 'Is a valid token',
+					 'data' => array(
+						 'status' => 200,
+					 ),
+				 ),
+				 200
+			 );
 		} catch ( \Exception $e ) {
 			/** Something is wrong trying to decode the token, send back the error */
 			return new \WP_Error(
