@@ -291,6 +291,27 @@ class Jwt_Auth_Public {
 		return $token;
 	}
 
+
+	/**
+	 * Decode Token.
+	 *
+	 * @param string $token
+	 *
+	 * @return bool|object
+	 */
+	public static function decode_token( string $token ) {
+		$secret_key = defined( 'JWT_AUTH_SECRET_KEY' ) ? JWT_AUTH_SECRET_KEY : false;
+		if ( ! $secret_key ) {
+			return false;
+		}
+
+		try {
+			return JWT::decode( $token, $secret_key, array( 'HS256' ) );
+		} catch ( \Exception $e ) {
+			return false;
+		}
+	}
+
 	/**
 	 * Rest Api permission callback.
 	 *
