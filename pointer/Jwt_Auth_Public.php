@@ -291,7 +291,6 @@ class Jwt_Auth_Public {
 		return $token;
 	}
 
-
 	/**
 	 * Decode Token.
 	 *
