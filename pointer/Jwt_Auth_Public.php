@@ -238,7 +238,7 @@ class Jwt_Auth_Public {
 	}
 
 	/**
-	 * Filter to hook the rest_pre_dispatch, if the is an error in the request
+	 * Filter to hook the rest_pre_dispatch, if the is an error in the request,
 	 * send it, if there is no error just continue with the current request.
 	 *
 	 * @param mixed            $response Current response, either response or `null` to indicate pass-through.
