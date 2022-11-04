@@ -1,7 +1,7 @@
 <?php
 namespace AJ;
 
-/** Requiere the JWT library. */
+/** Require the JWT library. */
 
 use \Firebase\JWT\JWT;
 
@@ -17,8 +17,6 @@ use \Firebase\JWT\JWT;
  *
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
- *
- * @author     Enrique Chavez <noone@tmeister.net>
  */
 class Jwt_Auth_Public {
 	/**
