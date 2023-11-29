@@ -55,7 +55,7 @@ jobs:
           at: .
       - add_ssh_keys:
           fingerprints:
-            - "d6:de:ae:4c:83:8b:ed:b5:ed:22:13:be:c2:d3:4b:cb"
+            - "f7:ee:08:99:21:c0:5c:85:5d:97:74:47:8f:bb:aa:55"
       - deploy:
           name: Deploy -built branch to github
           command: bash <(curl -s "https://raw.githubusercontent.com/Automattic/vip-go-build/master/deploy.sh")
