@@ -2,3 +2,4 @@
 vendor/
 !vendor/composer
 !vendor/firebase/php-jwt
+composer.lock
