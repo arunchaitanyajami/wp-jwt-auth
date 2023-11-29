@@ -40,6 +40,11 @@ if ( file_exists( JWT_PLUGIN_DIR . '/vendor/autoload.php' ) ) {
 	include_once JWT_PLUGIN_DIR . '/vendor/autoload.php';
 }
 
+include_once JWT_PLUGIN_DIR . '/includes/Jwt_Auth.php';
+include_once JWT_PLUGIN_DIR . '/includes/Jwt_Auth_i18n.php';
+include_once JWT_PLUGIN_DIR . '/includes/Jwt_Auth_Loader.php';
+include_once JWT_PLUGIN_DIR . '/pointer/Jwt_Auth_Public.php';
+
 /**
  * Begins execution of the plugin.
  *
