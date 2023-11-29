@@ -3,7 +3,7 @@
         'name' => 'arunchaitanyajami/wp-api-jwt-auth',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'dcb3d0b30986d0bf5617f55fdb6c5e5e65226aa5',
+        'reference' => 'b16540c16c54c63c260f83b120bb5765575688b3',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'arunchaitanyajami/wp-api-jwt-auth' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'dcb3d0b30986d0bf5617f55fdb6c5e5e65226aa5',
+            'reference' => 'b16540c16c54c63c260f83b120bb5765575688b3',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
