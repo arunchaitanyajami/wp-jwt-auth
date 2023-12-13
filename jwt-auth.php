@@ -15,7 +15,7 @@
  * Plugin Name:       JWT Authentication for WP-API
  * Plugin URI:        https://github.com/arunchaitanyajami
  * Description:       Extends the WP REST API using JSON Web Tokens Authentication as an authentication method.
- * Version:           1.0.3
+ * Version:           1.0.4
  * Author:            Arun Chaitanya Jami
  * Author URI:        https://github.com/arunchaitanyajami
  * License:           GPL-2.0+
