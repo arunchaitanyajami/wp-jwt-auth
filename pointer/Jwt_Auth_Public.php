@@ -284,9 +284,7 @@ class Jwt_Auth_Public {
 		];
 
 		/** Let the user modify the token data before the sign. */
-		$token = JWT::encode( apply_filters( 'jwt_auth_token_before_sign', $token, $user ), $secret_key );
-
-		return $token;
+		return JWT::encode( apply_filters( 'jwt_auth_token_before_sign', $token, $user ), $secret_key, 'HS256' ); 
 	}
 
 	/**
