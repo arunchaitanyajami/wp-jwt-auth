@@ -4,7 +4,7 @@
  * The plugin bootstrap file.
  *
  * This file is read by WordPress to generate the plugin information in the plugin
- * admin area. This file also includes all of the dependencies used by the plugin,
+ * admin area. This file also includes all the dependencies used by the plugin,
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
@@ -15,7 +15,7 @@
  * Plugin Name:       JWT Authentication for WP-API
  * Plugin URI:        https://github.com/arunchaitanyajami
  * Description:       Extends the WP REST API using JSON Web Tokens Authentication as an authentication method.
- * Version:           1.0.4
+ * Version:           1.0.5
  * Author:            Arun Chaitanya Jami
  * Author URI:        https://github.com/arunchaitanyajami
  * License:           GPL-2.0+
