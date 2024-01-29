@@ -4,6 +4,7 @@ namespace AJ;
 /** Require the JWT library. */
 
 use \Firebase\JWT\JWT;
+use \Firebase\JWT\Key;
 
 /**
  * The public-facing functionality of the plugin.
@@ -188,7 +189,9 @@ class Jwt_Auth_Public {
 
 		/** Try to decode the token */
 		try {
-			$token = JWT::decode( $token, $secret_key, array( 'HS256' ) );
+			$secret_key = new Key( $secret_key, 'HS256' );
+
+			$token = JWT::decode( $token, $secret_key );
 			/** The Token is decoded now validate the iss */
 			if ( $token->iss != get_bloginfo( 'url' ) ) {
 				/** The iss do not match, return error */
@@ -284,7 +287,7 @@ class Jwt_Auth_Public {
 		];
 
 		/** Let the user modify the token data before the sign. */
-		return JWT::encode( apply_filters( 'jwt_auth_token_before_sign', $token, $user ), $secret_key, 'HS256' ); 
+		return JWT::encode( apply_filters( 'jwt_auth_token_before_sign', $token, $user ), $secret_key, 'HS256' );
 	}
 
 	/**
@@ -301,7 +304,9 @@ class Jwt_Auth_Public {
 		}
 
 		try {
-			return JWT::decode( $token, $secret_key, array( 'HS256' ) );
+			$secret_key = new Key( $secret_key, 'HS256' );
+
+			return JWT::decode( $token, $secret_key );
 		} catch ( \Exception $e ) {
 			return false;
 		}
